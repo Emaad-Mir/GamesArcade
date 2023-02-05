@@ -10,7 +10,7 @@
 ### Monday Dinner - Head Chef Lisa (6 - 7pm)
 
 
- 
+
 ### Tuesday Breakfast (8-9:30am)
 > Grits and Sausage Links in the main hall
 
