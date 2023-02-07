@@ -1,0 +1,61 @@
+<style>
+    .button {
+        background-color: #d1d3d1; /* Green */
+        border: black;
+        color: rgb(180, 28, 28);
+        padding: 20px 40px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 24px;
+        transition-duration: 0.4s;
+      }
+      .button:hover {
+        background-color: #4CAF50; /* Green */
+        color: white;
+      }
+
+      h6 {
+        font-size: 200%;
+      }
+</style>
+<p><button class = 'button' onclick="generate(this)">Play Now!</button></p>
+<h6>
+<p id="*"> </p>
+<p id="**"> </p>
+</h6>
+<script>
+  //import fs from 'fs';
+  function getinput(myletter1){
+//    document.write('Country to Guess begins with : ' + myletter1);
+    //document.write('test input');
+    let mydata = "";
+    //document.write('test input DR');
+    //fs.readFile('countries.txt');
+    fs.readFile('countries.txt', (err, data) => {
+        if (err) document.write('ERROR'); 
+        //throw err;
+        console.log(data.toString());
+        //mydata = data.toString();
+    });
+    document.write('READ COUNTRIES INPUT TEXT FILE\n');
+    var lines = mydata.split('\n');
+    var ans = 0;
+    for(var i = 0; i < lines.length; i++){
+      if(lines[i][0] == myletter1){
+        ans++;
+      }
+    }
+    return ans;
+  }
+  function generate(elem){
+    let letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    let myletter = letters[Math.floor(Math.random()*26)];
+    document.getElementById("*").innerHTML = "Guess every country beginning with " + myletter + "!";
+    //let numcountries = getinput(myletter);
+    //document.getElementById("**").innerHTML = "You have "+numcountries+" countries to guess!";
+    elem.style.display = 'none';
+    
+  }
+</script>
+
