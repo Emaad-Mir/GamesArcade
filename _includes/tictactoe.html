@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .tic-tac-toe-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(3, 1fr);
+      width: 300px;
+      height: 300px;
+      margin: 0 auto;
+    }
+    .tic-tac-toe-grid button {
+      width: 100%;
+      height: 100%;
+      font-size: 36px;
+    }
+  </style>
+</head>
+<body>
+  <div class="tic-tac-toe-grid">
+    <button id="square-0"></button>
+    <button id="square-1"></button>
+    <button id="square-8"></button>
+  </div>
+  <script src="tic-tac-toe.js"></script>
+</body>
+<script>
+    const squares = document.querySelectorAll('.tic-tac-toe-grid button');
+let currentPlayer = 'X';
+
+for (let i = 0; i < squares.length; i++) {
+  squares[i].addEventListener('click', function () {
+    if (this.innerHTML === '') {
+      this.innerHTML = currentPlayer;
+
+      if (checkForWin()) {
+        alert(currentPlayer + ' wins!');
+        resetGame();
+      } else if (checkForTie()) {
+        alert('Tie!');
+        resetGame();
+      } else {
+        switchPlayer();
+      }
+    }
+  });
+}
+
+function checkForWin() {
+  // Check rows
+  for (let i = 0; i <= 6; i += 3) {
+    if (squares[i].innerHTML === currentPlayer &&
+        squares[i + 1].innerHTML === currentPlayer &&
+        squares[i + 2].innerHTML === currentPlayer) {
+      return true;
+    }
+  }
+
+  // Check columns
+  for (let i = 0; i <= 2; i++) {
+    if (squares[i].innerHTML === currentPlayer &&
+        squares[i + 3].innerHTML === currentPlayer &&
+        squares[i + 6].innerHTML === currentPlayer) {
+      return true;
+    }
+  }
+
+  // Check diagonals
+  if (squares[0].innerHTML === currentPlayer &&
+      squares[4].innerHTML === currentPlayer &&
+      squares[8].innerHTML === currentPlayer) {
+    return true;
+  }
+  if (squares[2].innerHTML === currentPlayer &&
+      squares[4].innerHTML === currentPlayer &&
+      squares[6].innerHTML === currentPlayer) {
+    return true;
+  }
+
+  return false;
+}
+</script>
+</html>
