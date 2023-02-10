@@ -1,0 +1,52 @@
+<html>
+  <head>
+    <script>
+      function displayQuestion(category, value) {
+        var question = get_question(category, value);
+        document.getElementById("question").innerHTML = question;
+      }
+    </script>
+  </head>
+  <body>
+    <h2>Jeopardy Categories</h2>
+    <table>
+      <tr>
+        <td>NBA</td>
+        <td><button onclick="displayQuestion('NBA', 100)">100</button></td>
+        <td><button onclick="displayQuestion('NBA', 200)">200</button></td>
+        <td><button onclick="displayQuestion('NBA', 300)">300</button></td>
+        <td><button onclick="displayQuestion('NBA', 400)">400</button></td>
+        <td><button onclick="displayQuestion('NBA', 500)">500</button></td>
+      </tr>
+      <tr>
+        <td>NFL</td>
+        <td><button onclick="displayQuestion('NFL', 100)">100</button></td>
+        <td><button onclick="displayQuestion('NFL', 200)">200</button></td>
+        <td><button onclick="displayQuestion('NFL', 300)">300</button></td>
+        <td><button onclick="displayQuestion('NFL', 400)">400</button></td>
+        <td><button onclick="displayQuestion('NFL', 500)">500</button></td>
+      </tr>
+      <tr>
+        <td>UFC</td>
+        <td><button onclick="displayQuestion('UFC', 100)">100</button></td>
+        <td><button onclick="displayQuestion('UFC', 200)">200</button></td>
+        <td><button onclick="displayQuestion('UFC', 300)">300</button></td>
+        <td><button onclick="displayQuestion('UFC', 400)">400</button></td>
+        <td><button onclick="displayQuestion('UFC', 500)">500</button></td>
+      </tr>
+      <tr>
+        <td>Soccer</td>
+        <td><button onclick="displayQuestion('Soccer', 100)">100</button></td>
+        <td><button onclick="displayQuestion('Soccer', 200)">200</button></td>
+        <td><button onclick="displayQuestion('Soccer', 300)">300</button></td>
+        <td><button onclick="displayQuestion('Soccer', 400)">400</button></td>
+        <td><button onclick="displayQuestion('Soccer', 500)">500</button></td>
+      </tr>
+      <tr>
+        <td>MLB</td>
+        <td><button onclick="displayQuestion('MLB', 100)">100</button></td>
+        <td><button onclick="displayQuestion('MLB', 200)">200</button></td>
+        <td><button onclick="displayQuestion('MLB', 300)">300</button></td>
+        <td><button onclick="displayQuestion('MLB', 400)">400</button></td>
+        <td><button onclick="displayQuestion('MLB', 500)">500</button></td>
+    </tr>
