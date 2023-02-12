@@ -1,7 +1,7 @@
 theme: jekyll-theme-midnight
 title: "Theee Arcade"
-description: "games and fun for everyone!"
-gitorg: "https://github.com/jm1021/theeearcade"
+description: "Welcome to Theee Arcade! Our arcade servees to provide you with a fun and memorable experience by providing you with an assortment of games for them to choose from. If at any time your are bored or don't know what to do for the day, play our games her at Theee Arcade!"
+gitorg: "https://emaad-mir.github.io/GamesArcade/"
 google_analytics:
 #remote_theme: pages-themes/modernist@v0.2.0
 remote_theme: pages-themes/dinky@v0.2.0

@@ -23,16 +23,17 @@
     </head>
 
     <body>
-        <p><button class='button' onclick='playHangman()'>Play Now!</button></p>
-        <h6>
-            <p id="*"> </p>
-            <p id="**"> </p>
-        </h6>
-        <form id = "hangman"></form>
+        <p><button class='button' onclick='initHangman()'>Play Now!</button></p>
 
         <div id="game">
-            <div id="word"></div>
-            <div id="lives"></div>
+            <p id="word"></p>
+            <p id="lives"></p>
+
+            <p id = "letters"></p>
+            <input style = "display: none" name="guess" id="guess">
+            <button id = "guessButton" style = "display: none" onclick = "guessLetter()">Guess a letter!</button>
+            <p id = "gameOver"></p>
+
         </div>
 
         <script>
@@ -43,59 +44,108 @@
             }
 
             function gameOver (solution, won) {
-                var hangman = "___\n|/|\n|@\n/|\\\n|/\\\n|\n=====";
                 message = "";
                 if (won) {
                     message = "YOU WIN!"
                 } else {
-                    message = "GAME OVER\n\n" + hangman;
+                    message = "GAME OVER";
                 }
                 message += "\n\nThe correct answer was " + solution + ".";
-                alert(message);
-                return message;
+                document.getElementById("gameOver").innerHTML = message;
+                finished = true;
             }
 
-            function playHangman () {
-                var solution = getSolution().toUpperCase();
-                var solutionLetters = solution.split("");
-                var wrongLetters = [];
-                var lives = 7;
-                var progress = "_".repeat(solution.length).split('');
+            let lives = 7;
+            let solution = ""
+            let solutionLetters = []
+            let progress = ""
+            let wrongLetters = []
+            let finished = true;
 
-                var confirmPlay = confirm("Let's play Hangman!\n\nMy word has " + solution.length + " letters in it. Are you ready?");
 
-                if (!confirmPlay) {
-                    return gameOver(solution, false);
-                }
+            function initHangman () {
+                solution = getSolution().toUpperCase();
+                solutionLetters = solution.split("");
+                wrongLetters = [];
+                lives = 7;
+                progress = "_".repeat(solution.length).split('');
+                finished = false;
 
-                while (wrongLetters.length < lives) {
-                    var promptMessage = "Here is your progress on the word so far: \n" + progress.join(' ') + "\nWrong guesses: [" + wrongLetters.toString() + "]\n\nPick a letter:";
-                    var userInput = prompt(promptMessage);
+                updateDisplay()
+                document.getElementById("gameOver").innerHTML = "";
+                document.getElementById("guess").style.display = "block";
+                document.getElementById("guessButton").style.display = "block";
 
-                    var guess = userInput.toUpperCase();
-                    var goodGuess = false;
 
-                    for(var i = 0; i < solutionLetters.length; i++) {
-                        if (solutionLetters[i] == guess) {
-        goodGuess = true;
-        progress[i] = guess;
+            }
+
+            function updateDisplay(){
+                document.getElementById("word").innerHTML = progress.join(" ");
         
-      }
-    }
+                document.getElementById("lives").innerHTML = "Lives: "+ lives
+                document.getElementById("letters").innerHTML = "[" + wrongLetters.join(", ") + "]"
 
-    if (goodGuess) {
-      if (progress.join('') == solution) {
-        return gameOver(solution, true);
-      }
-    } else {
-      wrongLetters.push(guess);
-      alert("Sorry, " + guess + " is incorrect.\nYou have " + (lives - wrongLetters.length) + " strikes left.");
-    }
-  }
-  return gameOver(solution, false);
-}
 
-playHangman();
+            }
+            
+            function guessLetter(){
+                if(finished){
+                    return;
+                }
+                const guess = document.getElementById("guess").value.toUpperCase()
+                let goodGuess = false;
+
+                for(let i = 0; i < solutionLetters.length; i++){
+                    if(solutionLetters[i] == guess){
+                        goodGuess = true;
+                        progress[i] = guess;
+                    }
+                }
+                updateDisplay()
+
+                if(goodGuess){
+                    if(progress.join('') == solution){
+                        return gameOver(solution, true)
+                    }
+            
+
+                } else{
+                    wrongLetters.push(guess);
+                    lives--
+                    updateDisplay()
+                }
+                if(lives == 0){
+                    gameOver(solution,false)
+                }
+            }
+            
+
+    //             while (wrongLetters.length < lives) {
+    //                 var promptMessage = "Here is your progress on the word so far: \n" + progress.join(' ') + "\nWrong guesses: [" + wrongLetters.toString() + "]\n\nPick a letter:";
+    //                 var userInput = prompt(promptMessage);
+
+    //                 var guess = userInput.toUpperCase();
+    //                 var goodGuess = false;
+
+    //                 for(var i = 0; i < solutionLetters.length; i++) {
+    //                     if (solutionLetters[i] == guess) {
+    //     goodGuess = true;
+    //     progress[i] = guess;
+        
+    //   }
+    // }
+
+//     if (goodGuess) {
+//       if (progress.join('') == solution) {
+//         return gameOver(solution, true);
+//       }
+//     } else {
+//       wrongLetters.push(guess);
+//       alert("Sorry, " + guess + " is incorrect.\nYou have " + (lives - wrongLetters.length) + " strikes left.");
+//     }
+//   }
+//   return gameOver(solution, false);
+
 
         </script>
     </body>
