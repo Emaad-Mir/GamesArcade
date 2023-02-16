@@ -40,6 +40,9 @@ input {
 <form id = "countries">
 
 </form>
+<br>
+<p id = "******"> </p>
+<br>
 <p id="****"> </p>
 <p id="*****"> </p>
 <script language = "JavaScript">
@@ -73,14 +76,18 @@ input {
             document.getElementById(inputs[i].id).readOnly = true;
             document.getElementById(buttons[i].id).disabled= "disabled";
           }
+          let num = 0;
+          let den = 0;
           var goodlist = [];
           var badlist = [];
           for(let j = 0; j < countries.length; j++){
             if(countries[j][0] == myletter){
               let found = false;
+              den++;
               for(let k = 0; k < guessed.length; k++){
                 if(countries[j].toLowerCase() == guessed[k].toLowerCase()){
                   found = true;
+                  num++;
                 }
               }
               if(found){
@@ -90,6 +97,8 @@ input {
               }
             }
           }
+          document.getElementById("******").style.fontSize = 100;
+          document.getElementById("******").innerHTML = num+"/"+den;
           let goodstr = "Countries you got right: ";
           let badstr = "Countries you missed: ";
           for(let j = 0; j < goodlist.length; j++){
