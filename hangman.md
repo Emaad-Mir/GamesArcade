@@ -9,7 +9,7 @@ For those who are unfamiliar with Hangman or have forgotten how to play it, belo
 - Every round, a new word will be randomly generated for you to guess
 - You have 7 chances to guess the mystery word as fast as possible
 - Every time you guess a letter correctly, the letters that were in the word will be crossed out/removed from the word bank
-- If you guess a letter, wrong, you lose one life
+- If you guess a letter wrong, you lose one life
 - Good luck!
 
 
