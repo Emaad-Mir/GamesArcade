@@ -2,16 +2,12 @@
   <head>
     <script>
       function displayQuestion(category, value) {
-        prompt("What Team did MJ Play for?")
-        var question = get_question(category, value);
-        document.getElementById("question").innerHTML = question;
+        let URL = `change/api/jeopardy?category=${category}&points=${value}`;
+        fetch(URL).then(d => d.text()).then(data =>{
+          document.getElementById("question").innerHTML = question;
+        });
       }
-      function displayQuestions(category,value) {
-        prompt("Who has the most rings in NBA history?")
-      }
-      function displayQuestionz(category,value) {
-        prompt("Who is welterweight champ")
-      }
+      
     </script>
   </head>
   <body>
@@ -23,7 +19,7 @@
         <td><button onclick="displayQuestion('NBA', 200)">200</button></td>
         <td><button onclick="displayQuestion('NBA', 300)">300</button></td>
         <td><button onclick="displayQuestion('NBA', 400)">400</button></td>
-        <td><button onclick="displayQuestions('NBA', 500)">500</button></td>
+        <td><button onclick="displayQuestion('NBA', 500)">500</button></td>
       </tr>
       <tr>
         <td>NFL</td>
@@ -35,7 +31,7 @@
       </tr>
       <tr>
         <td>UFC</td>
-        <td><button onclick="displayQuestionz('UFC', 100)">100</button></td>
+        <td><button onclick="displayQuestion('UFC', 100)">100</button></td>
         <td><button onclick="displayQuestion('UFC', 200)">200</button></td>
         <td><button onclick="displayQuestion('UFC', 300)">300</button></td>
         <td><button onclick="displayQuestion('UFC', 400)">400</button></td>
