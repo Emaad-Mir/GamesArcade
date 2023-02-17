@@ -210,8 +210,8 @@ console.error(err);
     return ans;
   }
   function generate(elem){
-    let letters = "A";
-    myletter = letters[Math.floor(Math.random()*1)];
+    let letters = "ABCDEFGHIJKLMNOPQRSTUVYZ";
+    myletter = letters[Math.floor(Math.random()*24)];
     document.getElementById("*").innerHTML = "Guess every country beginning with " + myletter + "!";
     numcountries = getnum(myletter);
     for(let i = 0; i < numcountries; i++){
