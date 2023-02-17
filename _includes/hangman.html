@@ -37,10 +37,46 @@
         </div>
 
         <script>
-            function getSolution () {
-                var possibleSolutions = ["coding", "programmer", "computer", "boolean", "string", "variable", "integer", "float"];
-                var randomIndex = Math.floor(Math.random() * possibleSolutions.length);
-                return possibleSolutions[randomIndex];
+            const url = "https://random-word-api.herokuapp.com/word?number=10";
+                const headers = {
+                method: 'GET', // *GET, POST, PUT, DELETE, etc.
+                mode: 'no-cors', // no-cors, *cors, same-origin
+                cache: 'default', // *default, no-cache, reload, force-cache, only-if-cached
+                credentials: 'omit', // include, *same-origin, omit
+                headers: {
+                    'Content-Type': 'application/json'
+                // 'Content-Type': 'application/x-www-form-urlencoded',
+              },
+            };
+
+            let possibleSolutions = [];
+            
+            fetch(url, headers)
+              // response is a RESTful "promise" on any successful fetch
+              .then(response => {
+                // check for response errors
+                if (response.status !== 200) {
+                    const errorMsg = 'Database response error: ' + response.status;
+                    console.log(errorMsg);
+                    return;
+                }
+                // valid response will have json data
+                response.json().then(data => {
+                    console.log(data)
+                    var possibleSolutions = data
+                    // Country data
+                })
+            })
+            // catch fetch errors (ie ACCESS to server blocked)
+            .catch(err => {
+              console.error(err);
+            });
+             function getSolution () {
+
+                
+                // var possibleSolutions = ["coding", "programmer", "computer", "boolean", "string", "variable", "integer", "float", "virus", "errors"];
+                 var randomIndex = Math.floor(Math.random() * possibleSolutions.length);
+                 return possibleSolutions[randomIndex];
             }
 
             function gameOver (solution, won) {
@@ -64,6 +100,8 @@
 
 
             function initHangman () {
+                const possibleSolutions = data.map(word => word.toUpperCase());
+                const randomIndex = Math.floor(Math.random() * possibleSolutions.length);
                 solution = getSolution().toUpperCase();
                 solutionLetters = solution.split("");
                 wrongLetters = [];
@@ -75,7 +113,7 @@
                 document.getElementById("gameOver").innerHTML = "";
                 document.getElementById("guess").style.display = "block";
                 document.getElementById("guessButton").style.display = "block";
-
+        
 
             }
 
