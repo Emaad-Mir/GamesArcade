@@ -16,6 +16,34 @@
                 background-color: #00c0eb; /* Green */
                 color: white;
             }
+
+            #guessButton {
+            background-color: #4CAF50;
+            border: none;
+            color: rgb(0, 0, 0);
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+
+            }
+
+            #guess {
+            background-color: #b4b4ea;
+            border: 2px solid #000000;
+            border-radius: 4px;
+            padding: 12px 20px;
+            margin: 8px 0;
+            box-sizing: border-box;
+}
+
+
+#guessButton:hover {
+  background-color: #3e8e41;
+}
             h6 {
                 font-size: 200%;
             }
@@ -37,22 +65,22 @@
         </div>
 
         <script>
-            const url = "https://cvcepgames.duckdns.org/api/hangman/";
+           /*  const url = "https://cvcepgames.duckdns.org/api/hangman/";
                 const headers = {
                 method: 'GET', // *GET, POST, PUT, DELETE, etc.
                 mode: 'no-cors', // no-cors, *cors, same-origin
                 cache: 'default', // *default, no-cache, reload, force-cache, only-if-cached
                 credentials: 'omit', // include, *same-origin, omit
-                headers: {
-                    'Content-Type': 'application/json'
+                headers: { */
+                //    'Content-Type': 'application/json'
                 // 'Content-Type': 'application/x-www-form-urlencoded',
                 //
-              },
-            };
+           //   },
+           // };
 
             let possibleSolutions = [];
             
-            fetch(url, headers)
+            /* fetch(url, headers)
               // response is a RESTful "promise" on any successful fetch
               .then(response => {
                 // check for response errors
@@ -70,14 +98,14 @@
             })
             // catch fetch errors (ie ACCESS to server blocked)
             .catch(err => {
-              console.error(err);
-            });
+              console.error(err); */
+           // });
              function getSolution () {
 
                 
-                // var possibleSolutions = ["coding", "programmer", "computer", "boolean", "string", "variable", "integer", "float", "virus", "errors"];
-                 var randomIndex = Math.floor(Math.random() * possibleSolutions.length);
-                 return possibleSolutions[randomIndex];
+                var possibleSolutions = ["coding", "programmer", "computer", "boolean", "string", "variable", "integer", "float", "virus", "errors"];
+                var randomIndex = Math.floor(Math.random() * possibleSolutions.length);
+                return possibleSolutions[randomIndex];
             }
 
             function gameOver (solution, won) {
@@ -101,8 +129,8 @@
 
 
             function initHangman () {
-                const possibleSolutions = data.map(word => word.toUpperCase());
-                const randomIndex = Math.floor(Math.random() * possibleSolutions.length);
+              //  const possibleSolutions = data.map(word => word.toUpperCase());
+              //  const randomIndex = Math.floor(Math.random() * possibleSolutions.length);
                 solution = getSolution().toUpperCase();
                 solutionLetters = solution.split("");
                 wrongLetters = [];
