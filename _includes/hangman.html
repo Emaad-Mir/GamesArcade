@@ -64,46 +64,90 @@
 
         </div>
 
+        <input id = "new_word">
+        <button id = "createButton" onclick = "postWord()">Create a new word!</button>
+
+        <input id = "removed_id">
+        <button onclick = "deleteWord()">Delete a word by id!</button>
+
         <script>
-           /*  const url = "https://cvcepgames.duckdns.org/api/hangman/";
-                const headers = {
+             const url = "https://cvcepgames.duckdns.org/api/words/";
+             const post_url = url+"create"
+             const delete_url = url+"delete/"
+                const get_options = {
                 method: 'GET', // *GET, POST, PUT, DELETE, etc.
-                mode: 'no-cors', // no-cors, *cors, same-origin
+                mode: 'cors', // no-cors, *cors, same-origin
                 cache: 'default', // *default, no-cache, reload, force-cache, only-if-cached
                 credentials: 'omit', // include, *same-origin, omit
-                headers: { */
-                //    'Content-Type': 'application/json'
-                // 'Content-Type': 'application/x-www-form-urlencoded',
-                //
-           //   },
-           // };
+                headers: { 
+                   'Content-Type': 'application/json'                
+             },
+           };
+
+           function postWord(){
+                const options = {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        word: document.getElementById("new_word").value
+                    })
+                }
+
+                fetch(post_url, options)
+                    .then(response => {
+                        if(response.status !== 200){
+                            return;
+                        }
+                        response.json().then(data=>{
+                            fetchWords()
+                        })
+                    })
+           }
+
+           function deleteWord(){
+                const options = {
+                    method: 'DELETE'
+                }
+                const full_url = delete_url+document.getElementById("removed_id").value
+
+                fetch(full_url, options)
+                    .then(response => {
+                        if(response.status !== 200){
+                            return;
+                        }
+                        response.json().then(data=>{
+                            fetchWords()
+                        })
+                    })
+           }
+          
+
+           function fetchWords(){
+                console.log("test")
+                fetch(url, get_options)
+                    .then(response => {
+                        if(response.status !== 200){
+                            return;
+                        }
+                        response.json().then(data=>{
+                            possibleWords = []
+                            for(const row of data){
+                                possibleWords.push(row.word)
+
+                            }
+                            console.log(possibleWords)
+                            possibleSolutions = possibleWords
+                        })
+                    })
+           }
 
             let possibleSolutions = [];
+            fetchWords()
             
-            /* fetch(url, headers)
-              // response is a RESTful "promise" on any successful fetch
-              .then(response => {
-                // check for response errors
-                if (response.status !== 200) {
-                    const errorMsg = 'Database response error: ' + response.status;
-                    console.log(errorMsg);
-                    return;
-                }
-                // valid response will have json data
-                response.json().then(data => {
-                    console.log(data)
-                    var possibleSolutions = data
-                    // Country data
-                })
-            })
-            // catch fetch errors (ie ACCESS to server blocked)
-            .catch(err => {
-              console.error(err); */
-           // });
-             function getSolution () {
-
-                
-                var possibleSolutions = ["coding", "programmer", "computer", "boolean", "string", "variable", "integer", "float", "virus", "errors"];
+             function getSolution () {                
+             //   var possibleSolutions = ["coding", "programmer", "computer", "boolean", "string", "variable", "integer", "float", "virus", "errors"];
                 var randomIndex = Math.floor(Math.random() * possibleSolutions.length);
                 return possibleSolutions[randomIndex];
             }
