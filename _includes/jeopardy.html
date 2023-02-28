@@ -1,13 +1,17 @@
 <html>
   <head>
     <script>
+      // This sets the score to 0 where it will be changed in the future
       let score = 0;
+      // This function is for tallying the total score of the user in the game
       function create_score() {
-        let score_element = document.createElement("h1");
+        let score_element = document.createElement("h3");
         score_element.innerText = score;
         document.getElementById("score").appendChild(score_element);
       }
+
       create_score();
+      // This function is how the question is displayed in the frontend. It also has data cleaning for making sure that all the data has no characters other than numbers or letters
       function displayQuestion(category, value, element) {
         let URL = `https://cvcepgames.duckdns.org/api/jeopardy?category=${category}&points=${value}`;
         let check_URL = `https://cvcepgames.duckdns.org/api/check_answer?category=${category}&points=${value}`;
@@ -27,6 +31,7 @@
             body: JSON.stringify({ "answer": userResponse.trim() }),
         }).then(d => d.json()).then(response => {
             console.log(response)
+            // THis checks if the answer if the answer the user entered is correct and awards them points and removes the button
             if(response.result === "Correct") {
                 score += value;
                 element.remove();
