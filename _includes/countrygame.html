@@ -46,43 +46,94 @@ input {
 <p id="****"> </p>
 <p id="*****"> </p>
 <script language = "JavaScript">
-  const url = "https://random-word-api.herokuapp.com/word?number=10";
-  const headers = {
-  method: 'GET', // *GET, POST, PUT, DELETE, etc.
-  mode: 'no-cors', // no-cors, *cors, same-origin
-  cache: 'default', // *default, no-cache, reload, force-cache, only-if-cached
-  credentials: 'omit', // include, *same-origin, omit
-  headers: {
-      'Content-Type': 'application/json'
-  // 'Content-Type': 'application/x-www-form-urlencoded',
-  //
-},
+  const url = "https://cvcepgames.duckdns.org/api/countries/";
+  const post_url = url+"create"
+  const delete_url = url+"delete/"
+     const get_options = {
+     method: 'GET', // *GET, POST, PUT, DELETE, etc.
+     mode: 'cors', // no-cors, *cors, same-origin
+     cache: 'default', // *default, no-cache, reload, force-cache, only-if-cached
+     credentials: 'omit', // include, *same-origin, omit
+     headers: { 
+        'Content-Type': 'application/json'                
+  },
 };
 
-let possibleSolutions = [];
+function postCountry(ID){
+     const options = {
+         method: 'POST',
+         headers: {
+             'Content-Type': 'application/json'
+         },
+         body: JSON.stringify({
+             cid: ID+1,
+             name: document.getElementById("input"+ID).value
+         })
+     }
+     fetch(post_url, options)
+         .then(response => {
+             if(response.status !== 200){
+                 return;
+             }
+             response.json().then(data=>{
+                 fetchCountries()
+             })
+         })
+}
 
-fetch(url, headers)
-// response is a RESTful "promise" on any successful fetch
-.then(response => {
-  // check for response errors
-  if (response.status !== 200) {
-      const errorMsg = 'Database response error: ' + response.status;
-      console.log(errorMsg);
-      return;
-  }
-  // valid response will have json data
-  response.json().then(data => {
-      console.log(data)
-      var possibleSolutions = data
-      // Country data
-  })
-})
-// catch fetch errors (ie ACCESS to server blocked)
-.catch(err => {
-console.error(err);
-});
+function deleteCountries(ID){
+     const options = {
+         method: 'DELETE'
+     }
+     const full_url = delete_url+(ID+1)
+
+     fetch(full_url, options)
+         .then(response => {
+             if(response.status !== 200){
+                 return;
+             }
+             response.json().then(data=>{
+                 fetchCountries()
+             })
+         })
+}
+
+
+function fetchCountries(){
+     console.log("test")
+     fetch(url, get_options)
+         .then(response => {
+             if(response.status !== 200){
+                 return;
+             }
+             response.json().then(data=>{
+                 possibleCountries = []
+                 //for(let i = 0; i < 100; i++){
+                  //possibleCountries.push("*")
+                 //}
+                 for(const row of data){
+                  let newid = row.cid;
+                    let newarray = [newid, row.name];
+                     possibleCountries.push(newarray);
+                    //if(row.cid != null){
+                      //
+                    //}
+                 }
+                 console.log(possibleCountries)
+                 guessed = possibleCountries
+                 //if(guessed.length > 0){
+                  //document.write(guessed[0]);
+                 //}
+             })
+         })
+}
+
+ let guessed = [];
+ fetchCountries()
+ 
+
+
   var countries = ["Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Antigua and Barbuda", "Argentina", "Armenia", "Australia", "Austria", "Azerbaijan", "Bahamas, The", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", "Belize", "Benin", "Bhutan", "Bolivia", "Bosnia and Herzegovina", "Botswana", "Brazil", "Brunei", "Bulgaria", "Burkina Faso", "Burundi", "Cabo Verde", "Cambodia", "Cameroon", "Canada", "Central African Republic", "Chad", "Chile", "China", "Colombia", "Comoros", "Congo, Democratic Republic of the", "Congo, Republic of the", "Costa Rica", "Côte d’Ivoire", "Croatia", "Cuba", "Cyprus", "Czech Republic", "Denmark", "Djibouti", "Dominica", "Dominican Republic", "East Timor", "Ecuador", "Egypt", "El Salvador", "Equatorial Guinea", "Eritrea", "Estonia", "Eswatini", "Ethiopia", "Fiji", "Finland", "France", "Gabon", "Gambia, The", "Georgia", "Germany", "Ghana", "Greece", "Grenada", "Guatemala", "Guinea", "Guinea-Bissau", "Guyana", "Haiti", "Honduras", "Hong Kong", "Hungary", "Iceland", "India", "Indonesia", "Iran", "Iraq", "Ireland", "Israel", "Italy", "Jamaica", "Japan", "Jordan", "Kashmir", "Kazakhstan", "Kenya", "Kiribati", "Korea, North", "Korea, South", "Kosovo", "Kuwait", "Kyrgyzstan", "Laos", "Latvia", "Lebanon", "Lesotho", "Liberia", "Libya", "Liechtenstein", "Lithuania", "Luxembourg", "Madagascar", "Malawi", "Malaysia", "Maldives", "Mali", "Malta", "Marshall Islands", "Mauritania", "Mauritius", "Mexico", "Micronesia", "Moldova", "Monaco", "Mongolia", "Montenegro", "Morocco", "Mozambique", "Myanmar", "Namibia", "Nauru", "Nepal", "Netherlands", "New Zealand", "Nicaragua", "Niger", "Nigeria", "North Macedonia", "Norway", "Oman", "Ohio", "Pakistan", "Palau", "Panama", "Papua New Guinea", "Paraguay", "Peru", "Philippines", "Poland", "Portugal", "Qatar", "Romania", "Russia", "Rwanda", "Saint Kitts and Nevis", "Saint Lucia", "Saint Vincent and the Grenadines", "Samoa", "San Marino", "Sao Tome and Principe", "Saudi Arabia", "Senegal", "Serbia", "Seychelles", "Sierra Leone", "Singapore", "Slovakia", "Slovenia", "Solomon Islands", "Somalia", "South Africa", "Spain", "Sri Lanka", "Sudan", "Sudan, South", "Suriname", "Sweden", "Switzerland", "Syria", "Taiwan", "Tajikistan", "Tanzania", "Thailand", "Togo", "Tonga", "Trinidad and Tobago", "Tunisia", "Turkey", "Turkmenistan", "Tuvalu", "Uganda", "Ukraine", "United Arab Emirates", "United Kingdom", "United States", "Uruguay", "Uzbekistan", "Vanuatu", "Vatican City", "Venezuela", "Vietnam", "Yemen", "Zambia", "Zimbabwe"]
-  var guessed = [];
   var myletter = "*";
   var numcountries = 0;
   var word = "bruh";
@@ -120,9 +171,11 @@ console.error(err);
               let found = false;
               den++;
               for(let k = 0; k < guessed.length; k++){
-                if(countries[j].toLowerCase() == guessed[k].toLowerCase()){
+                thisthing = guessed[k][1];
+                if(countries[j].toLowerCase() == thisthing.toLowerCase()){
                   found = true;
                   num++;
+                  break;
                 }
               }
               if(found){
@@ -156,7 +209,12 @@ console.error(err);
     }, 1000);
   }
   function check(mycountry, id){
-    guessed[id] = mycountry;
+    for(const i of guessed){
+      if(i[0] == id+1){
+        deleteCountries(id);
+        fetchCountries();
+      }
+    }
     country = mycountry.toLowerCase();
     thisletter = myletter.toLowerCase();
     //document.write(id);
@@ -169,19 +227,26 @@ console.error(err);
       }
       if(found){
         var newfound = false;
-        for(let i = 0; i < guessed.length; i++){
-          if(country == guessed[i].toLowerCase() && i != id){
+        for(const i of guessed){
+          let thisword = i[1];
+          if(country == thisword.toLowerCase()){
             newfound = true;
           }
         }
         if(!newfound){
+          document.getElementById("input"+id).readOnly = true;
+          document.getElementById("button"+id).disabled= "disabled";
           document.getElementById("feedback"+(id)).innerHTML = "Correct!";
           document.getElementById("input"+id).style.backgroundColor = "rgb(102,255,0)";
+          postCountry(id);
+          fetchCountries();
           //guessed.push(mycountry);
         }else{
+          //document.write(guessed);
           document.getElementById("feedback"+(id)).innerHTML = "You already guessed this!";        
           document.getElementById("input"+id).style.backgroundColor = null;
-          guessed[id] = "*";
+          deleteCountries(id);
+          fetchCountries();
         }
       }else{
         document.getElementById("feedback"+(id)).innerHTML = "This isn't a country";
@@ -253,4 +318,3 @@ console.error(err);
 </script>
 </body>
 </html>
-
