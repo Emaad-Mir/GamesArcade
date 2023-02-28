@@ -215,6 +215,7 @@ function fetchCountries(){
         fetchCountries();
       }
     }
+
     country = mycountry.toLowerCase();
     thisletter = myletter.toLowerCase();
     //document.write(id);
@@ -227,9 +228,10 @@ function fetchCountries(){
       }
       if(found){
         var newfound = false;
-        for(const i of guessed){
-          let thisword = i[1];
-          if(country == thisword.toLowerCase()){
+        //for(const i of guessed){
+        for(let i = 0; i < guessed.length; i++){
+          const thisword = guessed[i][1] || "";
+          if(country == (thisword.toLowerCase())){
             newfound = true;
           }
         }
