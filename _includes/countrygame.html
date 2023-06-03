@@ -1,7 +1,7 @@
 <html>
 <head>
 <style>
-.button {
+.button {/* formatting for buttons */
   background-color: #d1d3d1; /* Green */
   border: black;
   color: rgb(180, 28, 28);
@@ -19,7 +19,7 @@
 h6 {
   font-size: 200%;
 }
-input {
+input {/* input box formatting */
   width: 40%;
   height: 5%;
   border: 2px solid rgb(179, 21, 21);
@@ -29,7 +29,7 @@ input {
 </style>
 </head>
 <body>
-<p><button class = 'button' onclick="generate(this)">Play Now!</button></p>
+<p><button class = 'button' onclick="generate(this)">Play Now!</button></p><!-- instructing user to click the button to play now -->
 <h6>
 <p id="*"> </p>
 <p id="**"> </p>
@@ -46,230 +46,125 @@ input {
 <p id="****"> </p>
 <p id="*****"> </p>
 <script language = "JavaScript">
-  const url = "https://cvcepgames.duckdns.org/api/countries/";
-  const post_url = url+"create"
-  const delete_url = url+"delete/"
-     const get_options = {
-     method: 'GET', // *GET, POST, PUT, DELETE, etc.
-     mode: 'cors', // no-cors, *cors, same-origin
-     cache: 'default', // *default, no-cache, reload, force-cache, only-if-cached
-     credentials: 'omit', // include, *same-origin, omit
-     headers: { 
-        'Content-Type': 'application/json'                
-  },
-};
-
-function postCountry(ID){
-     const options = {
-         method: 'POST',
-         headers: {
-             'Content-Type': 'application/json'
-         },
-         body: JSON.stringify({
-             cid: ID+1,
-             name: document.getElementById("input"+ID).value
-         })
-     }
-     fetch(post_url, options)
-         .then(response => {
-             if(response.status !== 200){
-                 return;
-             }
-             response.json().then(data=>{
-                 fetchCountries()
-             })
-         })
-}
-
-function deleteCountries(ID){
-     const options = {
-         method: 'DELETE'
-     }
-     const full_url = delete_url+(ID+1)
-
-     fetch(full_url, options)
-         .then(response => {
-             if(response.status !== 200){
-                 return;
-             }
-             response.json().then(data=>{
-                 fetchCountries()
-             })
-         })
-}
-
-
-function fetchCountries(){
-     console.log("test")
-     fetch(url, get_options)
-         .then(response => {
-             if(response.status !== 200){
-                 return;
-             }
-             response.json().then(data=>{
-                 possibleCountries = []
-                 //for(let i = 0; i < 100; i++){
-                  //possibleCountries.push("*")
-                 //}
-                 for(const row of data){
-                  let newid = row.cid;
-                    let newarray = [newid, row.name];
-                     possibleCountries.push(newarray);
-                    //if(row.cid != null){
-                      //
-                    //}
-                 }
-                 console.log(possibleCountries)
-                 guessed = possibleCountries
-                 //if(guessed.length > 0){
-                  //document.write(guessed[0]);
-                 //}
-             })
-         })
-}
-
- let guessed = [];
- fetchCountries()
- 
-
-
-  var countries = ["Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Antigua and Barbuda", "Argentina", "Armenia", "Australia", "Austria", "Azerbaijan", "Bahamas, The", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", "Belize", "Benin", "Bhutan", "Bolivia", "Bosnia and Herzegovina", "Botswana", "Brazil", "Brunei", "Bulgaria", "Burkina Faso", "Burundi", "Cabo Verde", "Cambodia", "Cameroon", "Canada", "Central African Republic", "Chad", "Chile", "China", "Colombia", "Comoros", "Congo, Democratic Republic of the", "Congo, Republic of the", "Costa Rica", "Côte d’Ivoire", "Croatia", "Cuba", "Cyprus", "Czech Republic", "Denmark", "Djibouti", "Dominica", "Dominican Republic", "East Timor", "Ecuador", "Egypt", "El Salvador", "Equatorial Guinea", "Eritrea", "Estonia", "Eswatini", "Ethiopia", "Fiji", "Finland", "France", "Gabon", "Gambia, The", "Georgia", "Germany", "Ghana", "Greece", "Grenada", "Guatemala", "Guinea", "Guinea-Bissau", "Guyana", "Haiti", "Honduras", "Hong Kong", "Hungary", "Iceland", "India", "Indonesia", "Iran", "Iraq", "Ireland", "Israel", "Italy", "Jamaica", "Japan", "Jordan", "Kashmir", "Kazakhstan", "Kenya", "Kiribati", "Korea, North", "Korea, South", "Kosovo", "Kuwait", "Kyrgyzstan", "Laos", "Latvia", "Lebanon", "Lesotho", "Liberia", "Libya", "Liechtenstein", "Lithuania", "Luxembourg", "Madagascar", "Malawi", "Malaysia", "Maldives", "Mali", "Malta", "Marshall Islands", "Mauritania", "Mauritius", "Mexico", "Micronesia", "Moldova", "Monaco", "Mongolia", "Montenegro", "Morocco", "Mozambique", "Myanmar", "Namibia", "Nauru", "Nepal", "Netherlands", "New Zealand", "Nicaragua", "Niger", "Nigeria", "North Macedonia", "Norway", "Oman", "Ohio", "Pakistan", "Palau", "Panama", "Papua New Guinea", "Paraguay", "Peru", "Philippines", "Poland", "Portugal", "Qatar", "Romania", "Russia", "Rwanda", "Saint Kitts and Nevis", "Saint Lucia", "Saint Vincent and the Grenadines", "Samoa", "San Marino", "Sao Tome and Principe", "Saudi Arabia", "Senegal", "Serbia", "Seychelles", "Sierra Leone", "Singapore", "Slovakia", "Slovenia", "Solomon Islands", "Somalia", "South Africa", "Spain", "Sri Lanka", "Sudan", "Sudan, South", "Suriname", "Sweden", "Switzerland", "Syria", "Taiwan", "Tajikistan", "Tanzania", "Thailand", "Togo", "Tonga", "Trinidad and Tobago", "Tunisia", "Turkey", "Turkmenistan", "Tuvalu", "Uganda", "Ukraine", "United Arab Emirates", "United Kingdom", "United States", "Uruguay", "Uzbekistan", "Vanuatu", "Vatican City", "Venezuela", "Vietnam", "Yemen", "Zambia", "Zimbabwe"]
+ let guessed = [];// initializing array of guessed countries
+  var countries = ["Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Antigua and Barbuda", "Argentina", "Armenia", "Australia", "Austria", "Azerbaijan", "Bahamas, The", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", "Belize", "Benin", "Bhutan", "Bolivia", "Bosnia and Herzegovina", "Botswana", "Brazil", "Brunei", "Bulgaria", "Burkina Faso", "Burundi", "Cabo Verde", "Cambodia", "Cameroon", "Canada", "Central African Republic", "Chad", "Chile", "China", "Colombia", "Comoros", "Congo, Democratic Republic of the", "Congo, Republic of the", "Costa Rica", "Côte d’Ivoire", "Croatia", "Cuba", "Cyprus", "Czech Republic", "Denmark", "Djibouti", "Dominica", "Dominican Republic", "East Timor", "Ecuador", "Egypt", "El Salvador", "Equatorial Guinea", "Eritrea", "Estonia", "Eswatini", "Ethiopia", "Fiji", "Finland", "France", "Gabon", "Gambia, The", "Georgia", "Germany", "Ghana", "Greece", "Grenada", "Guatemala", "Guinea", "Guinea-Bissau", "Guyana", "Haiti", "Honduras", "Hong Kong", "Hungary", "Iceland", "India", "Indonesia", "Iran", "Iraq", "Ireland", "Israel", "Italy", "Jamaica", "Japan", "Jordan", "Kashmir", "Kazakhstan", "Kenya", "Kiribati", "Korea, North", "Korea, South", "Kosovo", "Kuwait", "Kyrgyzstan", "Laos", "Latvia", "Lebanon", "Lesotho", "Liberia", "Libya", "Liechtenstein", "Lithuania", "Luxembourg", "Madagascar", "Malawi", "Malaysia", "Maldives", "Mali", "Malta", "Marshall Islands", "Mauritania", "Mauritius", "Mexico", "Micronesia", "Moldova", "Monaco", "Mongolia", "Montenegro", "Morocco", "Mozambique", "Myanmar", "Namibia", "Nauru", "Nepal", "Netherlands", "New Zealand", "Nicaragua", "Niger", "Nigeria", "North Macedonia", "Norway", "Oman", "Ohio", "Pakistan", "Palau", "Panama", "Papua New Guinea", "Paraguay", "Peru", "Philippines", "Poland", "Portugal", "Qatar", "Romania", "Russia", "Rwanda", "Saint Kitts and Nevis", "Saint Lucia", "Saint Vincent and the Grenadines", "Samoa", "San Marino", "Sao Tome and Principe", "Saudi Arabia", "Senegal", "Serbia", "Seychelles", "Sierra Leone", "Singapore", "Slovakia", "Slovenia", "Solomon Islands", "Somalia", "South Africa", "Spain", "Sri Lanka", "Sudan", "Sudan, South", "Suriname", "Sweden", "Switzerland", "Syria", "Taiwan", "Tajikistan", "Tanzania", "Thailand", "Togo", "Tonga", "Trinidad and Tobago", "Tunisia", "Turkey", "Turkmenistan", "Tuvalu", "Uganda", "Ukraine", "United Arab Emirates", "United Kingdom", "United States", "Uruguay", "Uzbekistan", "Vanuatu", "Vatican City", "Venezuela", "Vietnam", "Yemen", "Zambia", "Zimbabwe"]                                                                                                         
+  //list of countries for data abstraction
+  //initalizing varaibles that will be used later on
   var myletter = "*";
   var numcountries = 0;
   var word = "bruh";
   var inputs = [];
   var buttons = [];
   var ps = [];
-  function timer(){
+  function timer(){//function to implement the countdown timer, and stop the game when it finishes.
     document.getElementById("***").style.fontSize = 100;
-    var sec = 10*numcountries;
+    var sec = 10*numcountries;//setting the time to 10 times the number of countries that needs to be guess, so the user has 10 seconds per country
     var timer = setInterval(function(){
-        if(sec%60 < 10){
-          document.getElementById('***').innerHTML= Math.floor(sec/60)+":0"+(sec%60);
-        }else{
-          document.getElementById('***').innerHTML= Math.floor(sec/60)+":"+(sec%60);
+      if(sec%60 < 10){//formatting timer correctly
+        document.getElementById('***').innerHTML= Math.floor(sec/60)+":0"+(sec%60);
+      }else{
+        document.getElementById('***').innerHTML= Math.floor(sec/60)+":"+(sec%60);
+      }
+      if(Math.floor(sec/60) < 10){
+        document.getElementById('***').innerHTML= "0"+document.getElementById('***').innerHTML;
+      }
+      sec--;
+      if(sec < 5){//making the time show up as red for the last 5 seconds
+        document.getElementById('***').style.color = "rgb(255,0,0)";
+      }
+      if (sec < 0) {//when the timer his zero, we lock all of the text boxes and check buttons, display a score, as well as the countries that were guess and the ones that weren't
+        clearInterval(timer);
+        for(let i = 0; i < buttons.length; i++){//dissabling inputs and buttons
+          document.getElementById(inputs[i].id).readOnly = true;
+          document.getElementById(buttons[i].id).disabled= "disabled";
         }
-        if(Math.floor(sec/60) < 10){
-          document.getElementById('***').innerHTML= "0"+document.getElementById('***').innerHTML;
-        }
-        sec--;
-        if(sec < 5){
-          document.getElementById('***').style.color = "rgb(255,0,0)";
-        }
-        if (sec < 0) {
-          clearInterval(timer);
-          for(let i = 0; i < buttons.length; i++){
-            document.getElementById(inputs[i].id).readOnly = true;
-            document.getElementById(buttons[i].id).disabled= "disabled";
-          }
-          let num = 0;
-          let den = 0;
-          var goodlist = [];
-          var badlist = [];
-          for(let j = 0; j < countries.length; j++){
-            if(countries[j][0] == myletter){
-              let found = false;
-              den++;
-              for(let k = 0; k < guessed.length; k++){
-                thisthing = guessed[k][1];
-                if(countries[j].toLowerCase() == thisthing.toLowerCase()){
-                  found = true;
-                  num++;
-                  break;
-                }
-              }
-              if(found){
-                goodlist.push(countries[j]);
-              }else{
-                badlist.push(countries[j]);
+        let num = 0;
+        let den = 0;
+        var goodlist = [];
+        var badlist = [];
+        for(let j = 0; j < countries.length; j++){//putting each country beginning with the letter into a list, either guessed or not guessed
+          if(countries[j][0] == myletter){
+            let found = false;
+            den++;
+            for(let k = 0; k < guessed.length; k++){
+              thisthing = guessed[k];
+              if(countries[j].toLowerCase() == thisthing.toLowerCase()){
+                found = true;
+                num++;
+                break;
               }
             }
+            if(found){
+              goodlist.push(countries[j]);
+            }else{
+              badlist.push(countries[j]);
+            }
           }
-          document.getElementById("******").style.fontSize = 100;
-          document.getElementById("******").innerHTML = num+"/"+den;
-          let goodstr = "Countries you got right: ";
-          let badstr = "Countries you missed: ";
-          for(let j = 0; j < goodlist.length; j++){
-            goodstr += goodlist[j]+", ";
-          }
-          for(let j = 0; j < badlist.length; j++){
-            badstr += badlist[j]+", ";
-          }
-          if(goodlist.length == 0){
-            goodstr+="None";
-          }
-          if(badlist.length == 0){
-            badstr+="None";
-          }
-          document.getElementById("****").innerHTML = goodstr;
-          document.getElementById("****").style.size = 50;
-          document.getElementById("*****").innerHTML = badstr;
-          document.getElementById("*****").style.size = 50;
         }
+        document.getElementById("******").style.fontSize = 100;//displaying final information
+        document.getElementById("******").innerHTML = num+"/"+den;
+        let goodstr = "Countries you got right: ";
+        let badstr = "Countries you missed: ";
+        for(let j = 0; j < goodlist.length; j++){
+          goodstr += goodlist[j]+", ";
+        }
+        for(let j = 0; j < badlist.length; j++){
+          badstr += badlist[j]+", ";
+        }
+        if(goodlist.length == 0){
+          goodstr+="None";
+        }
+        if(badlist.length == 0){
+          badstr+="None";
+        }
+        document.getElementById("****").innerHTML = goodstr;
+        document.getElementById("****").style.size = 50;
+        document.getElementById("*****").innerHTML = badstr;
+        document.getElementById("*****").style.size = 50;
+      }
     }, 1000);
   }
-  function check(mycountry, id){
-    for(const i of guessed){
-      if(i[0] == id+1){
-        deleteCountries(id);
-        fetchCountries();
-      }
-    }
-
+  function check(mycountry, id){//function to check weather a country is correct or not
     country = mycountry.toLowerCase();
     thisletter = myletter.toLowerCase();
-    //document.write(id);
-    if(country[0] == thisletter){
+    if(country[0] == thisletter){//checking if country begins with letter
       var found = false;
-      for(let i = 0; i < countries.length; i++){
+      for(let i = 0; i < countries.length; i++){//checking if country exists
         if(country == countries[i].toLowerCase()){
           found = true;
         }
       }
       if(found){
         var newfound = false;
-        //for(const i of guessed){
-        for(let i = 0; i < guessed.length; i++){
-          const thisword = guessed[i][1] || "";
+        for(let i = 0; i < guessed.length; i++){//checking if country is already guessed
+          const thisword = guessed[i];
           if(country == (thisword.toLowerCase())){
             newfound = true;
           }
         }
-        if(!newfound){
+        if(!newfound){//if the country is correct, we display that turning the box green, and adding it into the API
           document.getElementById("input"+id).readOnly = true;
           document.getElementById("button"+id).disabled= "disabled";
           document.getElementById("feedback"+(id)).innerHTML = "Correct!";
           document.getElementById("input"+id).style.backgroundColor = "rgb(102,255,0)";
-          postCountry(id);
-          fetchCountries();
-          //guessed.push(mycountry);
-        }else{
-          //document.write(guessed);
+          guessed.push(country)
+        }else{//displaying if the country was already guessed
           document.getElementById("feedback"+(id)).innerHTML = "You already guessed this!";        
           document.getElementById("input"+id).style.backgroundColor = null;
-          deleteCountries(id);
-          fetchCountries();
         }
-      }else{
+      }else{//displaying if the country isnt in the counties list
         document.getElementById("feedback"+(id)).innerHTML = "This isn't a country";
         document.getElementById("input"+id).style.backgroundColor = null;
       }
-    }else{
+    }else{//displaying if the country doesn't begin with the right letter
       document.getElementById("feedback"+(id)).innerHTML = "This doesn't begin with the right letter";
       document.getElementById("input"+id).style.backgroundColor = null;
     }
     return 0;
   }
-  //import fs from 'fs';
-  function getnum(myletter1){
-//    document.write('Country to Guess begins with : ' + myletter1);
-    //document.write('test input');
-    //document.write('test input DR');
-    //fs.readFile('countries.txt');
-    //document.write('READ COUNTRIES INPUT TEXT FILE\n');
-    //var lines = mydata.split('\n');
+  function getnum(myletter1){//function to find the number of countries that begin with the letter
     var ans = 0;
-    for(var i = 0; i < countries.length; i++){
+    for(var i = 0; i < countries.length; i++){//iterating through the list of countries to check each country's first letter
       if(countries[i][0] == myletter1){
         ans++;
       }
@@ -277,45 +172,40 @@ function fetchCountries(){
     return ans;
   }
   function generate(elem){
+    //randomly generating a letter from A-Z(skipping W and X, they have no countriex beginning with them) to use in the game
     let letters = "ABCDEFGHIJKLMNOPQRSTUVYZ";
     myletter = letters[Math.floor(Math.random()*24)];
-    document.getElementById("*").innerHTML = "Guess every country beginning with " + myletter + "!";
-    numcountries = getnum(myletter);
-    for(let i = 0; i < numcountries; i++){
-      guessed.push("*");
-    }
+    document.getElementById("*").innerHTML = "Guess every country beginning with " + myletter + "!";//giving the user instuctions to play the game
+    numcountries = getnum(myletter);//storing the number of countries beginnign with the letter
     word = " countries";
     if(numcountries == 1){
       word = " country";
     }
-    document.getElementById("**").innerHTML = "You have "+numcountries+word+" to guess!";
+    document.getElementById("**").innerHTML = "You have "+numcountries+word+" to guess!";//telling the user how many countries they have to guess
     let z = timer();
-    for(let i = 0; i < numcountries; i++){
+    for(let i = 0; i < numcountries; i++){//creating a textbox, check button, and text for each country beginning with the letter
       let input = document.createElement('input');
       let br = document.createElement("br");
       let p = document.createElement("p");
-      let butt = document.createElement("button");
-      butt.type = "button";
-      butt.textContent = "Check";
+      let button = document.createElement("button");
+      button.type = "button";
+      button.textContent = "Check";
       input.setAttribute('id',"input"+i);
       p.setAttribute('id',"feedback"+i);
-      butt.setAttribute('id',"button"+i);
-      //input.value = "bruh";
-      butt.addEventListener('click', function() {
-        //alert(87);
-        let val = document.getElementById("input"+butt.id.substring(6,butt.id.length)).value;
-        let result = check(val,butt.id.substring(6,butt.id.length));
+      button.setAttribute('id',"button"+i);
+      button.addEventListener('click', function() {//defining what the check button does
+        let val = document.getElementById("input"+button.id.substring(6,button.id.length)).value;
+        let result = check(val,button.id.substring(6,button.id.length));
       });
       inputs.push(input);
-      buttons.push(butt);
+      buttons.push(button);
       ps.push(p);
-      document.getElementById("countries").appendChild(inputs[inputs.length-1]);
+      document.getElementById("countries").appendChild(inputs[inputs.length-1]);//adding the new elements created to the frontend
       document.getElementById("countries").appendChild(buttons[buttons.length-1]);
       document.getElementById("countries").appendChild(ps[ps.length-1]);
-      //document.write("help plz");
+      document.getElementById("countries").appendChild(br);
     }
-    //document.write(document.getElementById("input0"));
-    elem.style.display = 'none';
+    elem.style.display = 'none';//Hiding the play button once the game starts to avoid glitches
   }
   //bruh
 </script>
